@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 const port = 3000; // Puedes cambiar el puerto si es necesario
 
 // Configura body-parser para procesar solicitudes JSON
@@ -16,20 +18,12 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const authRoutes = require('./auth');
 
-// ...
+const apiRoutes = require('./api');
 
 // Usa las rutas en tu aplicación
 app.use('/auth', authRoutes);
 
-const verificarToken = require('./middleware');
-
-// ...
-
-// Ejemplo de cómo proteger una ruta con el middleware
-app.get('/ruta_protegida', verificarToken, (req, res) => {
-    // Aquí puedes acceder al ID del usuario autenticado a través de req.userId
-    // Realiza cualquier operación protegida que necesites
-});
+app.use('/api', apiRoutes);
 
 app.listen(port);
 
