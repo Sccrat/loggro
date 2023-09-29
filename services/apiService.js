@@ -1,4 +1,5 @@
 const Tasks = require('../models/Tasks.js');
+const Images = require('../models/Images.js');
 const mongoose = require('mongoose');
 
 async function createTask(username, description, status, response) {
@@ -74,11 +75,41 @@ async function getTaskById(req, res) {
     }
 }
 
+async function chargeImages(req, res) {
+
+    const {
+        name,
+        size,
+        unitaryPrice,
+        description
+    } = req.body
+
+
+
+    const newImage = new Images({ name, size, unitaryPrice, description });
+
+    if (req.file) {
+        const { filename } = req.file
+        console.log('entro', filename);
+        newImage.setImgUrl(filename)
+    }
+
+    await newImage.save();
+
+    if (res.statusCode === 200) {
+        res.json({ message: 'Imagen registrada exitosamente.' });
+    } else {
+        res.status(500).json({ error: 'Error al registrar la imagen.' });
+    }
+
+}
+
 
 module.exports = {
     createTask,
     getTasks,
     deleteTask,
     updateTask,
-    getTaskById
+    getTaskById,
+    chargeImages
 };

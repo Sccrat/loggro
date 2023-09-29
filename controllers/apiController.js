@@ -21,11 +21,16 @@ function getTaskById(req, res) {
     apiService.getTaskById(req, res);
 }
 
+function chargeImages(req, res) {
+    apiService.chargeImages(req, res);
+}
+
 module.exports = {
     createTask,
     getTasks,
     deleteTask,
     updateTask,
-    getTaskById
+    getTaskById,
+    chargeImages
 
 };

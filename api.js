@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const upload = require('./libs/storage')
 
 
 const apiController = require("./controllers/apiController");
@@ -15,6 +16,8 @@ router.delete('/deleteTask/:taskId', apiController.deleteTask);
 router.put('/updateTask/:taskId', apiController.updateTask);
 
 router.get('/getTaskById/:taskId', apiController.getTaskById);
+
+router.post('/chargeImages', upload.single('image'), apiController.chargeImages);
 
 
 module.exports = router;

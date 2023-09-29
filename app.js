@@ -1,4 +1,5 @@
 const express = require('express');
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -24,6 +25,8 @@ const apiRoutes = require('./api');
 app.use('/auth', authRoutes);
 
 app.use('/api', apiRoutes);
+
+app.use('/public', express.static(`${__dirname}/storage/imgs)`))
 
 app.listen(port);
 
